@@ -1,0 +1,78 @@
+import java.util.Scanner;
+
+class ElectricityBill {
+    private int consumerNo;
+    private String consumerName;
+    private int previousMonthReading;
+    private int currentMonthReading;
+    private String typeOfConnection;
+
+    public ElectricityBill(int consumerNo, String consumerName, int previousMonthReading, int currentMonthReading, String typeOfConnection) {
+        this.consumerNo = consumerNo;
+        this.consumerName = consumerName;
+        this.previousMonthReading = previousMonthReading;
+        this.currentMonthReading = currentMonthReading;
+        this.typeOfConnection = typeOfConnection;
+    }
+
+    public double computeBillAmount() {
+        double consumptionUnits = currentMonthReading - previousMonthReading;
+        double billAmount = 0.0;
+
+        // Implement user-defined tariff here
+        // For example:
+
+        if (typeOfConnection.equals("domestic")) {
+            if (consumptionUnits <= 100) {
+                billAmount = consumptionUnits * 2.50;
+            } else if (consumptionUnits <= 200) {
+                billAmount = 100 * 2.50 + (consumptionUnits - 100) * 3.50;
+            } else {
+                billAmount = 100 * 2.50 + 100 * 3.50 + (consumptionUnits - 200) * 5.00;
+            }
+        } else if (typeOfConnection.equals("commercial")) {
+            if (consumptionUnits <= 500) {
+                billAmount = consumptionUnits * 4.00;
+            } else {
+                billAmount = 500 * 4.00 + (consumptionUnits - 500) * 5.50;
+            }
+        } else {
+            System.out.println("Invalid connection type.");
+        }
+
+        return billAmount;
+    }
+
+    public void displayBill() {
+        System.out.println("Consumer No: " + consumerNo);
+        System.out.println("Consumer Name: " + consumerName);
+        System.out.println("Previous Month Reading: " + previousMonthReading);
+        System.out.println("Current Month Reading: " + currentMonthReading);
+        System.out.println("Type of Connection: " + typeOfConnection);
+        System.out.println("Bill Amount: " + computeBillAmount());
+    }
+}
+
+public class ElectricityBillApplication {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter Consumer No: ");
+        int consumerNo = scanner.nextInt();
+
+        System.out.print("Enter Consumer Name: ");
+        String consumerName = scanner.next();
+
+        System.out.print("Enter Previous Month Reading: ");
+        int previousMonthReading = scanner.nextInt();
+
+        System.out.print("Enter Current Month Reading: ");
+        int currentMonthReading = scanner.nextInt();
+
+        System.out.print("Enter Type of Connection (domestic/commercial): ");
+        String typeOfConnection = scanner.next();
+
+        ElectricityBill bill = new ElectricityBill(consumerNo, consumerName, previousMonthReading, currentMonthReading, typeOfConnection);
+        bill.displayBill();
+    }
+}
