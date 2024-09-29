@@ -1,0 +1,71 @@
+import java.util.Scanner;
+
+abstract class Converter {
+    abstract void convert(double value);
+}
+
+class CurrencyConverter extends Converter {
+    @Override
+    void convert(double value) {
+        System.out.println("Dollar to INR: " + value * 82.5);
+        System.out.println("EURO to INR: " + value * 85.5);
+        System.out.println("Yen to INR: " + value * 0.6);
+        System.out.println("INR to Dollar: " + value / 82.5);
+        System.out.println("INR to EURO: " + value / 85.5);
+        System.out.println("INR to Yen: " + value / 0.6);
+    }
+}
+
+class DistanceConverter extends Converter {
+    @Override
+    void convert(double value) {
+        System.out.println("Meter to KM: " + value / 1000);
+        System.out.println("Miles to KM: " + value * 1.60934);
+        System.out.println("KM to Meter: " + value * 1000);
+        System.out.println("KM to Miles: " + value / 1.60934);
+    }
+}
+
+class TimeConverter extends Converter {
+    @Override
+    void convert(double value) {
+        System.out.println("Hours to Minutes: " + value * 60);
+        System.out.println("Hours to Seconds: " + value * 3600);
+        System.out.println("Minutes to Hours: " + value / 60);
+        System.out.println("Seconds to Hours: " + value / 3600);
+    }
+}
+
+public class ConverterApplication {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Choose a conversion type:");
+        System.out.println("1. Currency Converter");
+        System.out.println("2. Distance Converter");
+        System.out.println("3. Time Converter");
+
+        int choice = scanner.nextInt();
+
+        System.out.print("Enter the value: ");
+        double value = scanner.nextDouble();
+
+        Converter converter = null;
+        switch (choice) {
+            case 1:
+                converter = new CurrencyConverter();
+                break;
+            case 2:
+                converter = new DistanceConverter();
+                break;
+            case 3:
+                converter = new TimeConverter();
+                break;
+            default:
+                System.out.println("Invalid choice.");
+                return;
+        }
+
+        converter.convert(value);
+    }
+}
