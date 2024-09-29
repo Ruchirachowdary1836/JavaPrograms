@@ -1,0 +1,26 @@
+public class Invoice {
+    private String partNumber;
+    private String partDescription;
+    private int quantity;
+    private double pricePerItem;
+
+    public Invoice(String partNumber, String partDescription, int quantity, double pricePerItem) {
+        this.partNumber = partNumber;
+        this.partDescription = partDescription;
+        this.quantity = quantity;
+        this.pricePerItem = pricePerItem;
+    }
+
+    public double getInvoiceAmount() {
+        return quantity * pricePerItem;
+    }
+
+    public static void main(String[] args) {
+        // Create an Invoice object
+        Invoice invoice = new Invoice("123", "Hammer", 2, 19.99);
+
+        // Calculate and print the invoice amount
+        double totalAmount = invoice.getInvoiceAmount();
+        System.out.println("Total Invoice Amount: " + totalAmount);
+    }
+}
